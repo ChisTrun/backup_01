@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .Container {
+            position: relative;
+        }
+        .test {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="Container">
+        <div class="test"></div>
+    </div>
+
+
+    <script>
+
+            function handleMouseDown(e) {
+                this.isDown = true;
+                this.xOld = e.clientX;
+                this.yOld = e.clientY;
+                if(isNaN(parseInt(this.style.left))) {
+                    this.style.left = this.offsetleft + 'px';
+                    this.style.top = this.offsettop + 'px';
+                }
+            }
+
+            function handleMouseMove(e) {
+                if(this.isDown) {
+
+                    const dX = e.clientX - this.xOld;
+                    const dY = e.clientY - this.yOld;
+                    // let xCur = e.clientX;
+                    // let yCur = e.clientY;
+                    // let dX = this.xCur - this.xOld;
+                    // let dY = this.yCur - this.yOld;
+                    console.log(dX);
+                    this.style.left = (this.offsetLeft + dX) + 'px';
+                    this.style.top = (this.offsetTop + dY) + 'px';
+                    this.xOld = e.clientX;
+                    this.yOld = e.clientY;
+                }
+            }
+
+            function handleMouseUp(e) {
+                this.isDown = false;    
+            }
+
+            let temp = document.querySelectorAll('.test');
+            for (const iterator of temp) {
+                
+                iterator.addEventListener('mousedown',handleMouseDown);
+                iterator.addEventListener('mousemove',handleMouseMove);
+                iterator.addEventListener('mouseup',handleMouseUp);        
+            }
+
+    </script>
+</body>
+
+</html>
